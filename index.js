@@ -29,15 +29,6 @@ async function run() {
             res.send(result)
         })
         
-        app.get('/completeTask/:email', async (req, res) => {
-            const email = req.params.email;
-            console.log(email)
-            console.log("ami")
-            const query = { UserEmail: email ,completed:true}
-            const tasks = await tasksCollection.find(query).toArray()
-            // console.log(tasks)
-            res.send(tasks)
-          })
         app.get('/task/:email', async (req, res) => {
             const email = req.params.email;
             console.log(email)
@@ -88,33 +79,6 @@ async function run() {
             res.send(result)
           })
 
-
-          
-        app.put('/comment/:id', async (req, res) => {
-            const id = req.params.id;
-            const filter={_id:ObjectId(id)}
-            const task=await tasksCollection.findOne(filter)
-            console.log(task)
-          //   const status=req.body.task
-          //   console.log(status)
-
-          //   console.log(status)
-          const comment=req.body.comment
-            console.log(id)
-            // console.log(complete)
-            console.log(task)
-            console.log(task.comment)
-            const query ={_id:ObjectId(id)}
-            const updateDoc={
-                $set:{
-                 
-                    comment:[...task.comment,comment]
-                }
-            }
-            const result = await tasksCollection.updateOne(query,updateDoc)
-            console.log(result)
-            res.send(result)
-          })
         app.delete('/delete/:id', async (req, res) => {
             const id = req.params.id;
             // const task = req.body;
